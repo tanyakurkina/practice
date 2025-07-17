@@ -1,9 +1,9 @@
 package edu.vsu;
 
 import edu.vsu.entity.FeedingRecord;
+import edu.vsu.service.FeedingService;
 import edu.vsu.services.FeedingFileHandler;
 import edu.vsu.services.FeedingRecordGenerator;
-import edu.vsu.services.FeedingService;
 
 import java.util.List;
 

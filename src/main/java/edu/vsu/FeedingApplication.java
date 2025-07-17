@@ -30,5 +30,8 @@ public class FeedingApplication {
 
         System.out.println("Month with most variety: " +
                 FeedingService.findMonthWithMostVariety(records));
+
+        System.out.println("Products not repeated: " +
+                FeedingService.findProductsNotRepeated(records));
     }
 }

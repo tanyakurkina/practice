@@ -33,6 +33,22 @@ public class FeedingService {
                 .orElse("No data");
     }
 
+    public static Map<String, List<String>> findProductsNotRepeated(List<FeedingRecord> records) {
+        LocalDate now = LocalDate.now();
+        LocalDate lastMonth = now.minusMonths(1);
+
+        Map<String, Set<String>> productsThisMonth = getProductsByMonth(records, now);
+        Map<String, Set<String>> productsLastMonth = getProductsByMonth(records, lastMonth);
+
+        return productsLastMonth.entrySet().stream()
+                .filter(entry -> productsThisMonth.containsKey(entry.getKey()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> entry.getValue().stream()
+                                .filter(product -> !productsThisMonth.get(entry.getKey()).contains(product))
+                                .toList()));
+    }
+
     private static Map<String, Set<String>> getProductsByMonth(List<FeedingRecord> records, LocalDate date) {
         return records.stream()
                 .filter(record -> record.getDate().getMonth().equals(date.getMonth()))
